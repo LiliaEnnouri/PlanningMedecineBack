@@ -37,3 +37,8 @@ Route::group(['prefix' => 'type'], function () {
     Route::get('/', 'TypeController@getAll');
     Route::get('/{typeId}', 'TypeController@getById');
 });
+
+
+Route::group(['prefix' => 'plageUnite'], function () {
+    Route::post('/addPlages', 'PlageUniteController@addPlages');
+});

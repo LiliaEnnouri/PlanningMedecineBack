@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Administrateur extends Model
+
+class Administrateur extends Authenticatable implements JWTSubject
 {
     protected $table = 'Administrateur';
     protected $primaryKey = 'administrateur_id';
@@ -20,4 +22,25 @@ class Administrateur extends Model
     ];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
