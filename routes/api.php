@@ -31,6 +31,7 @@ Route::group(['prefix' => 'unite'], function () {
 
 Route::group(['prefix' => 'theme'], function () {
     Route::get('/unite/{uniteId}', 'ThemeController@getThemesByUnite');
+    Route::put('/definirOrdre', 'ThemeController@definirOrdre');
 });
 
 Route::group(['prefix' => 'type'], function () {
@@ -41,4 +42,13 @@ Route::group(['prefix' => 'type'], function () {
 
 Route::group(['prefix' => 'plageUnite'], function () {
     Route::post('/addPlages', 'PlageUniteController@addPlages');
+});
+
+
+Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
+    Route::post('/login', 'Auth\LoginController@login');
+    Route::post('/logout', 'Auth\LoginController@logout');
+    Route::post('/refresh', 'Auth\LoginController@refresh');
+    Route::get('/me', 'Auth\LoginController@me');
+
 });

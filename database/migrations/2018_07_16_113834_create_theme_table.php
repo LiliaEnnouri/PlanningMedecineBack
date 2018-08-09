@@ -21,6 +21,7 @@ class CreateThemeTable extends Migration
             $table->String('code');
             $table->String('contenu');
             $table->integer('nb_heures');
+            $table->integer('ordre');
 
 
             $table->integer('enseignant_id')->unsigned();

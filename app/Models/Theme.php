@@ -14,6 +14,7 @@ class Theme extends Model
         'code',
         'contenu',
         'nb_heures',
+        'ordre',
         'enseignant_id',
         'type_id',
         'unite_id'

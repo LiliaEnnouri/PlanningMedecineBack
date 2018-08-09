@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Administrateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -45,7 +47,13 @@ class LoginController extends Controller
      */
     public function login()
     {
-        $credentials = request(['login', 'password']);
+        $credentials = request(['email', 'password']);
+        $email = request ('email');
+
+        $user = Administrateur::where('email', $email)->first();
+
+        if(!$user) return response()->json(['error' => 'no email'], 401);
+
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);

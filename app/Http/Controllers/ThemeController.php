@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repository\ThemeRepository;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class ThemeController extends BaseController
@@ -27,10 +28,15 @@ class ThemeController extends BaseController
         return response()->json($theme);
     }
 
-    public function getThemesByunite($niveauId){
-        if (!$theme = $this->themeRepository->getThemesByUnite($niveauId)) {
+    public function getThemesByunite($uniteId){
+        if (!$theme = $this->themeRepository->getThemesByUnite($uniteId)) {
             return response()->json(['error' => 'theme not found'], 404);
         }
         return response()->json($theme);
+    }
+
+    public function definirOrdre(Request $request){
+        $themes = $this->themeRepository->definirOrdre($request);
+        return response()->json($themes);
     }
 }
