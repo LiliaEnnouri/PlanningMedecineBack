@@ -31,12 +31,12 @@ class AdministrateurRepository
 
     public function getAll()
     {
-        return Utilisateur::all();
+        return Administrateur::all();
     }
 
     public function getById($administrateurId)
     {
-        return Utilisateur::find($administrateurId);
+        return Administrateur::find($administrateurId);
     }
 
     public function delete($administrateur){

@@ -27,7 +27,7 @@ class ThemeRepository
 
     public function getThemesByUnite($uniteId){
 
-        return Theme::where('unite_id','=',$uniteId)->get();
+        return Theme::where('unite_id','=',$uniteId)->orderBy("ordre")->get();
 
     }
 
@@ -35,12 +35,19 @@ class ThemeRepository
     {
         $themes = $request->all();
         foreach ($themes as $key => $val) {
-            print "$key = $val\n";
             $theme = $this->getById($val);
             $theme->ordre = ($key + 1);
             $theme->update();
         }
         return $themes;
+    }
+
+    public function definirSemaines($theme,$debut, $fin)
+    {
+        $theme['semaine_debut'] = $debut;
+        $theme['semaine_fin'] = $fin;
+        $theme->update();
+        return $theme;
     }
 
 }

@@ -35,4 +35,9 @@ class Plage_Unite extends Model
         return $this->belongsTo('App\Unite');
     }
 
+    public function Seance()
+    {
+        return $this->hasMany('App\Seance');
+    }
+
 }

@@ -12,8 +12,6 @@ class DeleteTableSeeder extends Seeder
     public function run()
     {
 
-        DB::table('Seance')->delete();
-        DB::table('Partie_Theme')->delete();
         DB::table('Theme')->delete();
         DB::table('Plage_Unite')->delete();
         DB::table('Unite')->delete();
@@ -23,8 +21,7 @@ class DeleteTableSeeder extends Seeder
         DB::table('Niveau')->delete();
         DB::table('Type_Unite')->delete();
         DB::table('Type')->delete();
-
-
+        DB::table('Administrateur')->delete();
 
 
     }

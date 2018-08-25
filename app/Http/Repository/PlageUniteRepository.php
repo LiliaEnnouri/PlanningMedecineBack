@@ -41,4 +41,10 @@ class PlageUniteRepository
         return $plages;
     }
 
+    public function getPlagesByUnite($uniteId){
+
+        return Plage_Unite::where('unite_id','=',$uniteId)->orderBy("jour")->get();
+
+    }
+
 }

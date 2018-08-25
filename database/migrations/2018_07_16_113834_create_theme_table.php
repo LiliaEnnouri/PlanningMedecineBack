@@ -11,6 +11,7 @@ class CreateThemeTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('Theme', function (Blueprint $table) {
@@ -21,7 +22,10 @@ class CreateThemeTable extends Migration
             $table->String('code');
             $table->String('contenu');
             $table->integer('nb_heures');
-            $table->integer('ordre');
+            $table->integer('ordre')->nullable();
+
+            $table->integer('semaine_debut')->nullable();
+            $table->integer('semaine_fin')->nullable();
 
 
             $table->integer('enseignant_id')->unsigned();

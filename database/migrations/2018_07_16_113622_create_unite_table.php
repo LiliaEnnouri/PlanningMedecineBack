@@ -26,8 +26,8 @@ class CreateUniteTable extends Migration
             $table->String('description');
             $table->String('ECUE');
             $table->String('modalites_evaluation');
-            $table->integer('semaine_debut');
-            $table->integer('semaine_fin');
+            $table->integer('semaine_debut')->default(null)->nullable();
+            $table->integer('semaine_fin')->default(null)->nullable();
 
 
             $table->integer('appareil_id')->unsigned();

@@ -18,7 +18,7 @@ class CreatePlageUniteTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->String('jour');
+            $table->integer('jour');
             $table->String('heure_debut');
             $table->String('heure_fin');
 

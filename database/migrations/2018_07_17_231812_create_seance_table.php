@@ -17,10 +17,17 @@ class CreateSeanceTable extends Migration
             $table->increments('seance_id');
             $table->integer('semaine');
 
-            $table->integer('partie_theme_id')->unsigned();
-            $table->foreign('partie_theme_id')
-                ->references('partie_theme_id')
-                ->on('Partie_Theme')
+            $table->integer('plage_unite_id')->unsigned();
+            $table->foreign('plage_unite_id')
+                ->references('plage_unite_id')
+                ->on('Plage_Unite')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+
+            $table->integer('theme_id')->unsigned();
+            $table->foreign('theme_id')
+                ->references('theme_id')
+                ->on('Theme')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 

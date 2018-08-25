@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             DeleteTableSeeder::class,
+            AdministrateurTableSeeder::class,
             TypeTableSeeder::class,
             TypeUniteTableSeeder::class,
             NiveauTableSeeder::class,
@@ -22,10 +23,7 @@ class DatabaseSeeder extends Seeder
             AppareilTableSeeder::class,
             UniteTableSeeder::class,
             PlageUniteTableSeeder::class,
-            ThemeTableSeeder::class,
-            PartieThemeTableSeeder::class,
-            SeanceTableSeeder::class
-            ]);
+            ThemeTableSeeder::class,            ]);
 
 
     }

@@ -15,6 +15,8 @@ class Theme extends Model
         'contenu',
         'nb_heures',
         'ordre',
+        'semaine_debut',
+        'semaine_fin',
         'enseignant_id',
         'type_id',
         'unite_id'
@@ -22,10 +24,6 @@ class Theme extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Partie_Theme()
-    {
-        return $this->hasMany('App\Partie_Theme');
-    }
 
     public function Type()
     {
@@ -40,6 +38,11 @@ class Theme extends Model
     public function Enseignant()
     {
         return $this->belongsTo('App\Enseignant');
+    }
+
+    public function Seance()
+    {
+        return $this->hasMany('App\Seance');
     }
 
 

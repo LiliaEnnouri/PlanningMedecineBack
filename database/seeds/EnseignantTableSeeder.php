@@ -19,7 +19,7 @@ class EnseignantTableSeeder extends Seeder
             'CIN' => '07223344',
             'email' => 'hentati@gmail.com',
             'qr_code' => 'aaaaaaa',
-            'password' => 'kzjfbzmifugzpaifaizu',
+            'password' => bcrypt('hentati'),
             'passwordDecrypt' => 'hentati',
             'privilege_id' => 1,
         ]);
@@ -31,7 +31,7 @@ class EnseignantTableSeeder extends Seeder
             'CIN' => '07113344',
             'email' => 'dammak@gmail.com',
             'qr_code' => 'bbbbbb',
-            'password' => 'kzjfbzmifugzpzrsdcaifaizu',
+            'password' => bcrypt('dammak'),
             'passwordDecrypt' => 'dammak',
             'privilege_id' => 1,
         ]);
@@ -43,7 +43,7 @@ class EnseignantTableSeeder extends Seeder
             'CIN' => '07223355',
             'email' => 'rebai@gmail.com',
             'qr_code' => 'ccccccc',
-            'password' => 'fuvozcidbhjcnmqovum',
+            'password' => bcrypt('rebai'),
             'passwordDecrypt' => 'rebai',
             'privilege_id' => 1,
         ]);

@@ -12,14 +12,20 @@ class Seance extends Model
 
     public $fillable = [
         'samaine',
-        'partie_theme_id'
+        'theme_id',
+        'plage_unite_id'
     ];
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Partie_theme()
+    public function PlageUnite()
     {
-        return $this->hasOne('App\Partie_Theme');
+        return $this->hasOne('App\Plage_Unite','plage_unite_id','plage_unite_id');
+    }
+
+    public function Theme()
+    {
+        return $this->hasOne('App\Theme','theme_id','theme_id');
     }
 
 
