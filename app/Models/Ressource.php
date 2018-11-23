@@ -4,29 +4,26 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Seance extends Model
+class Ressource extends Model
 {
-    protected $table = 'Seance';
-    protected $primaryKey = 'seance_id';
+    protected $table = 'Ressource';
+    protected $primaryKey = 'ressource_id';
     public $timestamps = true;
 
     public $fillable = [
-        'samaine',
-        'theme_id',
-        'plage_unite_id'
+        'libelle',
+        'path',
+        'theme_id'
     ];
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
-
-    public function plageUnite()
-    {
-        return $this->hasOne('App\Plage_Unite','plage_unite_id','plage_unite_id');
-    }
 
     public function theme()
     {
         return $this->hasOne('App\Theme','theme_id','theme_id');
     }
+
+
 
 
 }

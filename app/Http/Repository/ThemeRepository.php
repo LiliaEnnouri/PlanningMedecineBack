@@ -9,7 +9,6 @@
 namespace App\Http\Repository;
 
 
-
 use App\Theme;
 
 class ThemeRepository
@@ -25,11 +24,25 @@ class ThemeRepository
         return Theme::find($themeId);
     }
 
-    public function getThemesByUnite($uniteId){
-
-        return Theme::where('unite_id','=',$uniteId)->orderBy("ordre")->get();
-
+    public function getThemesByUnite($uniteId)
+    {
+        return Theme::where('unite_id', '=', $uniteId)
+            ->with(['enseignant', 'unite'])
+            ->orderBy("ordre")->get();
     }
+
+    public function getThemesByEnseignant($enseignantId)
+    {
+        return Theme::where('enseignant_id', '=', $enseignantId)->get();
+    }
+
+    public function getThemesByNiveau($niveauId)
+    {
+
+        return Theme::whereHas('unite', function ($query) use ($niveauId) {
+            $query->where('niveau_id', '=', $niveauId); })->get();
+    }
+
 
     public function definirOrdre($request)
     {
@@ -42,7 +55,7 @@ class ThemeRepository
         return $themes;
     }
 
-    public function definirSemaines($theme,$debut, $fin)
+    public function definirSemaines($theme, $debut, $fin)
     {
         $theme['semaine_debut'] = $debut;
         $theme['semaine_fin'] = $fin;

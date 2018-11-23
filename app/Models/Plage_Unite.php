@@ -20,22 +20,22 @@ class Plage_Unite extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Partie_Theme()
+    public function partieTheme()
     {
         return $this->hasMany('App\Partie_Theme');
     }
 
-    public function Type()
+    public function type()
     {
         return $this->belongsTo('App\Type');
     }
 
-    public function Unite()
+    public function unite()
     {
-        return $this->belongsTo('App\Unite');
+        return $this->hasOne('App\Unite','unite_id','unite_id');
     }
 
-    public function Seance()
+    public function seance()
     {
         return $this->hasMany('App\Seance');
     }

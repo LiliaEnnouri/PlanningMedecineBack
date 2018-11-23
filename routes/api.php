@@ -26,8 +26,9 @@ Route::group(['prefix' => 'niveau'], function () {
 Route::group(['prefix' => 'seance'], function () {
     Route::get('/getAll', 'SeanceController@getAll');
     Route::get('/{seanceId}', 'SeanceController@getById');
-    Route::get('/unite/{uniteId}', 'SeanceController@getSeancesByunite');
-    Route::get('/withThemeWithPlage/unite/{uniteId}', 'SeanceController@getSeancesByuniteWithThemeWithPlage');
+    Route::get('/unite/{uniteId}', 'SeanceController@getSeancesByUnite');
+    Route::get('/enseignant/{enseignantId}', 'SeanceController@getSeancesByEnseignant');
+    Route::get('/niveau/{niveauId}', 'SeanceController@getSeancesByNiveau');
 
 });
 
@@ -36,6 +37,8 @@ Route::group(['prefix' => 'seance'], function () {
 Route::group(['prefix' => 'unite'], function () {
     Route::get('/niveau/{niveauId}', 'UniteController@getUnitesByNiveau');
     Route::get('/affecterEnseignant','UniteController@affecterEnseignant');
+    Route::get('/{uniteId}', 'UniteController@getById');
+
 });
 
 
@@ -43,6 +46,12 @@ Route::group(['prefix' => 'theme'], function () {
     Route::get('/unite/{uniteId}', 'ThemeController@getThemesByUnite');
     Route::put('/definirOrdre', 'ThemeController@definirOrdre');
     Route::get('/{themeId}', 'ThemeController@getById');
+
+});
+
+Route::group(['prefix' => 'ressource'], function () {
+    Route::get('/theme/{themeId}', 'RessourceController@getRessourcesByTheme');
+    Route::get('/{ressourceId}', 'RessourceController@getById');
 
 });
 
@@ -55,7 +64,9 @@ Route::group(['prefix' => 'type'], function () {
 Route::group(['prefix' => 'plageUnite'], function () {
     Route::post('/addPlages', 'PlageUniteController@addPlages');
     Route::get('/{plageId}', 'PlageUniteController@getById');
-
+    Route::get('/niveau/{niveauId}','PlageUniteController@getPlagesByNiveau');
+    Route::get('/unite/{uniteId}','PlageUniteController@getPlagesByUnite');
+    Route::put('/editPlages/{uniteId}', 'PlageUniteController@editPlages');
 });
 
 Route::group(['prefix' => 'admin'], function () {
@@ -68,6 +79,8 @@ Route::group(['prefix' => 'enseignant'], function () {
     Route::get('/getAll', 'EnseignantController@getAll');
     Route::post('/add', 'EnseignantController@add');
     Route::get('/unites/{enseignantId}', 'EnseignantController@getUnites');
+    Route::get('/{enseignantId}', 'EnseignantController@getById');
+
 });
 
 

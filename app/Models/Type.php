@@ -16,12 +16,12 @@ class Type extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Theme()
+    public function theme()
     {
         return $this->hasMany('App\Theme');
     }
 
-    public function Plage_Unite()
+    public function plageUnite()
     {
         return $this->hasMany('App\Plage_Unite');
     }

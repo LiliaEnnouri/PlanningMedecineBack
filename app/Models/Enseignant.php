@@ -26,14 +26,19 @@ class Enseignant extends Authenticatable implements JWTSubject
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Privilege()
+    public function privilege()
     {
         return $this->belongsTo('App\Privilege');
     }
 
-    public function Unite()
+    public function unite()
     {
         return $this->hasMany('App\Unite');
+    }
+
+    public function theme()
+    {
+        return $this->hasMany('App\Theme','theme_id','theme_id');
     }
 
 

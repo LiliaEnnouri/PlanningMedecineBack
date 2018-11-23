@@ -16,7 +16,7 @@ class Privilege extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Enseignant()
+    public function enseignant()
     {
         return $this->hasMany('App\Enseignant');
     }

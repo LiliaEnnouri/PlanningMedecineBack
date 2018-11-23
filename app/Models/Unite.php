@@ -29,32 +29,32 @@ class Unite extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Plage_Unite()
+    public function plageUnite()
     {
         return $this->hasMany('App\Plage_Unite');
     }
 
-    public function Niveau()
+    public function niveau()
     {
-        return $this->belongsTo('App\Niveau');
+        return $this->hasOne('App\Niveau','niveau_id','niveau_id');
     }
 
-    public function Appareil()
+    public function appareil()
     {
         return $this->belongsTo('App\Appareil');
     }
 
-    public function Type_Unite()
+    public function typeUnite()
     {
         return $this->belongsTo('App\Type_Unite');
     }
 
-    public function Enseignant()
+    public function enseignant()
     {
         return $this->belongsTo('App\Enseignant');
     }
 
-    public function Theme()
+    public function theme()
     {
         return $this->hasMany('App\Theme');
     }

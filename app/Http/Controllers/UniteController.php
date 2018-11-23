@@ -51,48 +51,67 @@ class UniteController extends BaseController
         return response()->json($unite);
     }
 
+
+    public function affectationPossible(){
+        $unites = $this->uniteRepository->getAll();
+        foreach ($unites as $unite){
+            if (!$this->plageUniteRepository->getPlagesByUnite($unite['unite_id'])){
+                return false;
+            }
+            $themes = $this->themeRepository->getThemesByUnite($unite['unite_id']);
+            foreach ($themes as $theme){
+                if (!$theme['ordre']) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     public function affecterEnseignant()
     {
         if ($unites = $this->uniteRepository->getAll()) {
-            foreach ($unites as $unite) {
-                $themes = $this->themeRepository->getThemesByUnite($unite['unite_id']);
-                $plages = $this->plageUniteRepository->getPlagesByUnite($unite['unite_id']);
-                Log::info($plages);
+            if($this->affectationPossible()){
+                foreach ($unites as $unite) {
+                    $themes = $this->themeRepository->getThemesByUnite($unite['unite_id']);
+                    $plages = $this->plageUniteRepository->getPlagesByUnite($unite['unite_id']);
+                    Log::info($plages);
 
-                $semaine = 1;
-                $i = 0;
+                    $semaine = 1;
+                    $i = 0;
 
-                if ((sizeof($themes)>0) && (sizeof($plages)>0)) {
+                    if ((sizeof($themes)>0) && (sizeof($plages)>0)) {
 
-                    foreach ($themes as $theme) {
-                        $debut = 10000;
+                        foreach ($themes as $theme) {
+                            $debut = 10000;
 
-                        $nb = $theme['nb_heures'];
+                            $nb = $theme['nb_heures'];
 
+                            while ($nb > 0) {
+                                $seanceExistante = $this->seanceRepository->getByPlageSemaine(($plages[$i]->plage_unite_id), $semaine);
+                                $diff = Utils::getTimeDiff($plages[$i]->heure_debut,$plages[$i]->heure_fin);
+                                if (($theme['type_id'] == $plages[$i]->type_id) && (!$seanceExistante)) {
+                                    $nb = $nb - $diff;
 
-                        while ($nb > 0) {
-                            $seanceExistante = $this->seanceRepository->getByPlageSemaine(($plages[$i]->plage_unite_id), $semaine);
-                            $diff = Utils::getTimeDiff($plages[$i]->heure_debut,$plages[$i]->heure_fin);
-                            if (($theme['type_id'] == $plages[$i]->type_id) && (!$seanceExistante)) {
-                                $nb = $nb - $diff;
+                                    $seance = new Seance();
+                                    $seance->theme_id = $theme['theme_id'];
+                                    $seance->plage_unite_id = $plages[$i]->plage_unite_id;
+                                    $seance->semaine = $semaine;
+                                    $this->seanceRepository->addSeance($seance);
 
-                                $seance = new Seance();
-                                $seance->theme_id = $theme['theme_id'];
-                                $seance->plage_unite_id = $plages[$i]->plage_unite_id;
-                                $seance->semaine = $semaine;
-                                $this->seanceRepository->addSeance($seance);
-
-                                if ($debut > $semaine) {
-                                    $debut = $semaine;
+                                    if ($debut > $semaine) {
+                                        $debut = $semaine;
+                                    }
+                                }
+                                $i = $i + 1;
+                                if (($i % sizeof($plages)) != $i) {
+                                    $i = 0;
+                                    $semaine = $semaine + 1;
                                 }
                             }
-                            $i = $i + 1;
-                            if (($i % sizeof($plages)) != $i) {
-                                $i = 0;
-                                $semaine = $semaine + 1;
-                            }
+                            $this->themeRepository->definirSemaines($theme, $debut, $semaine);
                         }
-                        $this->themeRepository->definirSemaines($theme, $debut, $semaine);
                     }
                 }
             }

@@ -47,4 +47,18 @@ class PlageUniteRepository
 
     }
 
+    public function getPlagesByNiveau($niveauId)
+    {
+        return Plage_Unite::whereHas('unite', function ($query) use ($niveauId) {
+            $query->where('niveau_id', '=', $niveauId); })
+            ->with(['unite'])->get();
+    }
+
+    public function deletePlages($plages)
+    {
+        foreach ( $plages as $plage){
+            $plage->delete();
+        }
+    }
+
 }

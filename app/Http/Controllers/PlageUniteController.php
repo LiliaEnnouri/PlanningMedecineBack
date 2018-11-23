@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Repository\PlageUniteRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
 
 class PlageUniteController extends BaseController
 {
@@ -33,4 +34,28 @@ class PlageUniteController extends BaseController
         $plages = $this->plageUniteRepository->addPlages($request);
         return response()->json($plages);
     }
+
+    public function editPlagesByUnite(Request $request, $uniteId)
+    {
+        if ($oldPlages = $this->plageUniteRepository->getPlagesByUnite($uniteId)){
+            $this->plageUniteRepository->deletePlages($oldPlages);
+        }
+        $plages = $this->plageUniteRepository->addPlages($request);
+        return response()->json($plages);
+    }
+
+    public function getPlagesByNiveau($niveauId)
+    {
+        $plages = $this->plageUniteRepository->getPlagesByNiveau($niveauId);
+        Log::info($plages);
+        return response()->json($plages);
+    }
+
+    public function getPlagesByUnite($uniteId)
+    {
+        $unites = $this->plageUniteRepository->getPlagesByUnite($uniteId);
+        Log::info($unites);
+        return response()->json($unites);
+    }
+
 }

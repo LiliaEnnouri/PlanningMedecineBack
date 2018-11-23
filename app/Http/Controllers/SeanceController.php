@@ -32,11 +32,12 @@ class SeanceController extends BaseController
         return response()->json($seance);
     }
 
-    public function getSeancesByunite($uniteId)
+    public function getSeancesByUnite($uniteId)
     {
         $array = array();
         $i = 0;
         if ($themes = $this->themeRepository->getThemesByUnite($uniteId)) {
+            Log::info($themes);
             foreach ($themes as $theme) {
                 if ($seances = $this->seanceRepository->getSeancesByTheme($theme["theme_id"])) {
                     foreach ($seances as $seance) {
@@ -46,17 +47,35 @@ class SeanceController extends BaseController
                 }
             }
         }
-
         return response()->json($array);
     }
 
-    public function getSeancesByuniteWithThemeWithPlage($uniteId)
+    public function getSeancesByEnseignant($enseignantId)
     {
         $array = array();
         $i = 0;
-        if ($themes = $this->themeRepository->getThemesByUnite($uniteId)) {
+        if ($themes = $this->themeRepository->getThemesByEnseignant($enseignantId)) {
+            Log::info($themes);
             foreach ($themes as $theme) {
-                if ($seances = $this->seanceRepository->getSeancesByThemeWithThemeWithPlage($theme["theme_id"])) {
+                if ($seances = $this->seanceRepository->getSeancesByTheme($theme["theme_id"])) {
+                    foreach ($seances as $seance) {
+                        $array = array_add($array, $i, $seance);
+                        $i = $i + 1;
+                    }
+                }
+            }
+        }
+        return response()->json($array);
+    }
+
+    public function getSeancesByNiveau($niveauId)
+    {
+        $array = array();
+        $i = 0;
+        if ($themes = $this->themeRepository->getThemesByNiveau($niveauId)) {
+            Log::info($themes);
+            foreach ($themes as $theme) {
+                if ($seances = $this->seanceRepository->getSeancesByTheme($theme["theme_id"])) {
                     foreach ($seances as $seance) {
                         $array = array_add($array, $i, $seance);
                         $i = $i + 1;

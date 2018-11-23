@@ -46,12 +46,7 @@ class SeanceRepository
 
     public function getSeancesByTheme($themeId)
     {
-        return Seance::where('theme_id','=',$themeId)->get();
-    }
-
-    public function getSeancesByThemeWithThemeWithPlage($themeId)
-    {
-        return Seance::where('theme_id','=',$themeId)->with(['Theme','PlageUnite'])
+        return Seance::where('theme_id','=',$themeId)->with(['theme.enseignant','theme.unite','plageUnite'])
             ->get();
     }
 

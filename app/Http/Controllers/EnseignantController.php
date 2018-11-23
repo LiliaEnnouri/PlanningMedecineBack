@@ -25,6 +25,14 @@ class EnseignantController extends Controller
         return response()->json($this->enseignantRepository->getAll());
     }
 
+    public function getById($enseignantId)
+    {
+        if (!$enseignant = $this->enseignantRepository->getById($enseignantId)) {
+            return response()->json(['error' => 'enseignant not found'], 404);
+        }
+        return response()->json($enseignant);
+    }
+
     public function delete($enseignantId){
         if (!$enseignant = $this->enseignantRepository->getById($enseignantId)) {
             return response()->json(['error' => 'enseignant not found'], 404);

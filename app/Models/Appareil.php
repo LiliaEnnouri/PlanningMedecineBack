@@ -16,7 +16,7 @@ class Appareil extends Model
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Unite()
+    public function unite()
     {
         return $this->hasMany('App\Unite');
     }

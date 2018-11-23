@@ -26,7 +26,7 @@ class Etudiant extends Authenticatable implements JWTSubject
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-    public function Niveau()
+    public function niveau()
     {
         return $this->belongsTo('App\Niveau');
     }

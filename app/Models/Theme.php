@@ -17,6 +17,7 @@ class Theme extends Model
         'ordre',
         'semaine_debut',
         'semaine_fin',
+        'ressources',
         'enseignant_id',
         'type_id',
         'unite_id'
@@ -25,24 +26,29 @@ class Theme extends Model
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
 
-    public function Type()
+    public function type()
     {
-        return $this->belongsTo('App\Type');
+        return $this->hasOne('App\Type','type_id','type_id');
     }
 
-    public function Unite()
+    public function unite()
     {
-        return $this->belongsTo('App\Unite');
+        return $this->hasOne('App\Unite','unite_id','unite_id');
     }
 
-    public function Enseignant()
+    public function enseignant()
     {
-        return $this->belongsTo('App\Enseignant');
+        return $this->hasOne('App\Enseignant','enseignant_id','enseignant_id');
     }
 
-    public function Seance()
+    public function seance()
     {
-        return $this->hasMany('App\Seance');
+        return $this->hasMany('App\Seance','seance_id','seance_id');
+    }
+
+    public function ressource()
+    {
+        return $this->hasMany('App\Ressource');
     }
 
 
